@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import java.util.logging.Logger;
 
 import javax.servlet.DispatcherType;
+import javax.servlet.Servlet;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -16,6 +17,7 @@ import com.netflix.karyon.server.KaryonServer;
 import com.netflix.zuul.context.ContextLifecycleFilter;
 import com.netflix.zuul.http.ZuulServlet;
 import com.dialectify.ws.artifacts.EdgeListener;
+import com.dialectify.ws.build.STBuild;
 
 public abstract class STrackerServer implements Closeable
 {
@@ -23,8 +25,8 @@ public abstract class STrackerServer implements Closeable
 	private static final Logger logger = Logger.getLogger(STrackerServer.class
 			.getName());
 
-	private final Server jettyServer;
-	private final KaryonServer karyonServer;
+	private Server jettyServer;
+	private KaryonServer karyonServer;
 
 	static
 	{
@@ -34,19 +36,15 @@ public abstract class STrackerServer implements Closeable
 	public STrackerServer()
 	{
 		System.setProperty(DynamicPropertyFactory.ENABLE_JMX, "true");
-
-		karyonServer = new KaryonServer();
-		karyonServer.initialize();
-		jettyServer = new Server();
 	}
 
-	public void start(String applicationName)
+	public void start(STBuild build) throws ClassNotFoundException
 	{
-		ServletHolder sh = new ServletHolder(ZuulServlet.class);
+		ServletHolder sh = new ServletHolder((Class<? extends Servlet>) Class.forName(build.getServletClassName()));
 		sh.setInitOrder(1);
 	
-		final Server server = new Server(8089);
-		ServletContextHandler context = new ServletContextHandler(server, "/",
+		jettyServer = new Server(8089);
+		ServletContextHandler context = new ServletContextHandler(jettyServer, "/",
 				ServletContextHandler.SESSIONS);
 		context.setClassLoader(Thread.currentThread().getContextClassLoader());
 		context.addServlet(sh, "/*");
@@ -55,9 +53,11 @@ public abstract class STrackerServer implements Closeable
 	
 		try
 		{
+			karyonServer = new KaryonServer();
+			karyonServer.initialize();
 			karyonServer.start();
-			server.start();
-			server.join();
+			jettyServer.start();
+			jettyServer.join();
 		}
 		catch (Exception exc)
 		{
