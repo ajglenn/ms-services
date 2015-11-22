@@ -1,11 +1,69 @@
 package com.dialectify.ws.build;
 
-import javax.servlet.Servlet;
 
 public class STBuild
 {
+	private boolean enableJmx;
 	private String applicationName;
-	private String servletClassName;
+	private int listenPort;
+	private ContextClass servletClass;
+	private ContextClass listenerClass;
+	private ContextClass filterClass;
+	
+	public String getEnableJmx()
+	{
+		return enableJmx ? "true" : "false";
+	}
+
+	public boolean isEnableJmx()
+	{
+		return enableJmx;
+	}
+
+	public void setEnableJmx(boolean enableJmx)
+	{
+		this.enableJmx = enableJmx;
+	}
+
+	public ContextClass getFilterClass()
+	{
+		return filterClass;
+	}
+
+	public void setFilterClass(ContextClass filterClass)
+	{
+		this.filterClass = filterClass;
+	}
+
+	public ContextClass getListenerClass()
+	{
+		return listenerClass;
+	}
+
+	public void setListenerClass(ContextClass listenerClass)
+	{
+		this.listenerClass = listenerClass;
+	}
+
+	public ContextClass getServletClass()
+	{
+		return servletClass;
+	}
+
+	public void setServletClass(ContextClass servletClass)
+	{
+		this.servletClass = servletClass;
+	}
+
+	public int getListenPort()
+	{
+		return listenPort;
+	}
+
+	public void setListenPort(int listenPort)
+	{
+		this.listenPort = listenPort;
+	}
 
 	public String getApplicationName()
 	{
@@ -24,15 +82,5 @@ public class STBuild
 		{
 			throw new IllegalArgumentException("Application name missing");
 		}
-	}
-
-	public String getServletClassName()
-	{
-		return servletClassName;
-	}
-
-	public void setServletClassName(String servletClassName)
-	{
-		this.servletClassName = servletClassName;
 	}
 }

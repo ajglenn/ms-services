@@ -5,18 +5,18 @@ import java.util.EnumSet;
 import java.util.logging.Logger;
 
 import javax.servlet.DispatcherType;
+import javax.servlet.Filter;
 import javax.servlet.Servlet;
+import javax.servlet.ServletContextListener;
 
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
 import com.netflix.blitz4j.LoggingConfiguration;
 import com.netflix.config.DynamicPropertyFactory;
 import com.netflix.karyon.server.KaryonServer;
-import com.netflix.zuul.context.ContextLifecycleFilter;
-import com.netflix.zuul.http.ZuulServlet;
-import com.dialectify.ws.artifacts.EdgeListener;
 import com.dialectify.ws.build.STBuild;
 
 public abstract class STrackerServer implements Closeable
@@ -33,23 +33,18 @@ public abstract class STrackerServer implements Closeable
 		LoggingConfiguration.getInstance().configure();
 	}
 
-	public STrackerServer()
+	public void start(STBuild build) throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
-		System.setProperty(DynamicPropertyFactory.ENABLE_JMX, "true");
-	}
-
-	public void start(STBuild build) throws ClassNotFoundException
-	{
-		ServletHolder sh = new ServletHolder((Class<? extends Servlet>) Class.forName(build.getServletClassName()));
-		sh.setInitOrder(1);
+		System.setProperty(DynamicPropertyFactory.ENABLE_JMX, build.getEnableJmx());
 	
-		jettyServer = new Server(8089);
+		jettyServer = new Server(build.getListenPort());
 		ServletContextHandler context = new ServletContextHandler(jettyServer, "/",
 				ServletContextHandler.SESSIONS);
 		context.setClassLoader(Thread.currentThread().getContextClassLoader());
-		context.addServlet(sh, "/*");
-		context.addFilter(ContextLifecycleFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
-		context.addEventListener(new EdgeListener());
+		
+		loadServletInContext(context, build);
+		loadFilterInContext(context, build);
+		loadListenerInContext(context, build);
 	
 		try
 		{
@@ -79,5 +74,39 @@ public abstract class STrackerServer implements Closeable
 
 		LoggingConfiguration.getInstance().stop();
 
+	}
+	
+	private <T> T loadClassInstanceByName(String className, Class<T> type) 
+	{
+		try
+		{
+			Class<T> clazz = (Class<T>) Class.forName(className);
+			return clazz.newInstance();
+		}
+		catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException e)
+		{
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+	
+	private void loadServletInContext(ServletContextHandler context, STBuild build)
+	{
+		ServletHolder sh = new ServletHolder(loadClassInstanceByName(build.getServletClass().getName(), Servlet.class));
+		sh.setInitOrder(1);
+		
+		context.addServlet(sh, "/*");
+	}
+	
+	private void loadFilterInContext(ServletContextHandler context, STBuild build)
+	{
+		FilterHolder filterHolder = new FilterHolder(loadClassInstanceByName(build.getFilterClass().getName(), Filter.class));
+		context.addFilter(filterHolder, "/*", EnumSet.of(DispatcherType.REQUEST));	
+	}
+	
+	private void loadListenerInContext(ServletContextHandler context, STBuild build)
+	{
+		context.addEventListener(loadClassInstanceByName(build.getListenerClass().getName(), ServletContextListener.class));
 	}
 }

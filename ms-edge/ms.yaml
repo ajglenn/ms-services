@@ -1,2 +1,9 @@
+enableJmx: true
 applicationName: zuul
-servletClassName: com.netflix.zuul.http.ZuulServlet
+listenPort: 8089
+listenerClass:
+  name: com.dialectify.ws.artifacts.EdgeListener
+filterClass:
+  name: com.netflix.zuul.context.ContextLifecycleFilter
+servletClass: 
+  name: com.netflix.zuul.http.ZuulServlet
