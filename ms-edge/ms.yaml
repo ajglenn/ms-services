@@ -7,3 +7,4 @@ filterClass:
   name: com.netflix.zuul.context.ContextLifecycleFilter
 servletClass: 
   name: com.netflix.zuul.http.ZuulServlet
+  properties: {key1 : value1, key2 : value2}

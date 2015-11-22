@@ -2,6 +2,8 @@ package com.dialectify.ws;
 
 import java.io.Closeable;
 import java.util.EnumSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.servlet.DispatcherType;
@@ -11,12 +13,14 @@ import javax.servlet.ServletContextListener;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.FilterHolder;
+import org.eclipse.jetty.servlet.Holder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
 import com.netflix.blitz4j.LoggingConfiguration;
 import com.netflix.config.DynamicPropertyFactory;
 import com.netflix.karyon.server.KaryonServer;
+import com.dialectify.ws.build.ContextClass;
 import com.dialectify.ws.build.STBuild;
 
 public abstract class STrackerServer implements Closeable
@@ -96,12 +100,17 @@ public abstract class STrackerServer implements Closeable
 		ServletHolder sh = new ServletHolder(loadClassInstanceByName(build.getServletClass().getName(), Servlet.class));
 		sh.setInitOrder(1);
 		
+		loadParametersToHolder(sh, build.getServletClass());
+		
 		context.addServlet(sh, "/*");
 	}
 	
 	private void loadFilterInContext(ServletContextHandler context, STBuild build)
 	{
 		FilterHolder filterHolder = new FilterHolder(loadClassInstanceByName(build.getFilterClass().getName(), Filter.class));
+		
+		loadParametersToHolder(filterHolder, build.getFilterClass());
+		
 		context.addFilter(filterHolder, "/*", EnumSet.of(DispatcherType.REQUEST));	
 	}
 	
@@ -109,4 +118,19 @@ public abstract class STrackerServer implements Closeable
 	{
 		context.addEventListener(loadClassInstanceByName(build.getListenerClass().getName(), ServletContextListener.class));
 	}
+	
+	private void loadParametersToHolder(Holder holder, ContextClass contextClass)
+	{
+		if(null == contextClass.getProperties())
+		{
+			return;
+		}
+		
+		for(Map.Entry<String,String> entry : contextClass.getProperties().entrySet())
+		{
+			logger.info(entry.getKey() + " -> " + entry.getValue());
+			holder.setInitParameter(entry.getKey(), entry.getValue());
+		}
+	}
+	
 }
