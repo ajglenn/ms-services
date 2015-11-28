@@ -1,0 +1,9 @@
+enableJmx: true
+applicationName: ms-weather
+listenPort: 8090
+listenerClass:
+filterClass:
+servletClass: 
+  name: com.sun.jersey.spi.container.servlet.ServletContainer
+  properties: {javax.ws.rs.Application : com.dialectify.ws.resources.WSApplication, 
+               com.sun.jersey.api.json.POJOMappingFeature : true}

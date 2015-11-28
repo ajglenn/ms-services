@@ -97,6 +97,11 @@ public abstract class STrackerServer implements Closeable
 	
 	private void loadServletInContext(ServletContextHandler context, STBuild build)
 	{
+		if(null == build.getServletClass())
+		{
+			return;
+		}
+		
 		ServletHolder sh = new ServletHolder(loadClassInstanceByName(build.getServletClass().getName(), Servlet.class));
 		sh.setInitOrder(1);
 		
@@ -107,6 +112,11 @@ public abstract class STrackerServer implements Closeable
 	
 	private void loadFilterInContext(ServletContextHandler context, STBuild build)
 	{
+		if(null == build.getFilterClass())
+		{
+			return;
+		}
+		
 		FilterHolder filterHolder = new FilterHolder(loadClassInstanceByName(build.getFilterClass().getName(), Filter.class));
 		
 		loadParametersToHolder(filterHolder, build.getFilterClass());
@@ -116,6 +126,11 @@ public abstract class STrackerServer implements Closeable
 	
 	private void loadListenerInContext(ServletContextHandler context, STBuild build)
 	{
+		if(null == build.getListenerClass())
+		{
+			return;
+		}
+		
 		context.addEventListener(loadClassInstanceByName(build.getListenerClass().getName(), ServletContextListener.class));
 	}
 	

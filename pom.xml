@@ -7,6 +7,11 @@
   <dependencyManagement>
   <dependencies>
   <dependency>
+  	<groupId>com.dialectify.ms</groupId>
+  	<artifactId>ms-core</artifactId>
+  	<version>${project.version}</version>
+  </dependency>
+  <dependency>
 	<groupId>org.yaml</groupId>
 	<artifactId>snakeyaml</artifactId>
 	<version>1.15</version>
@@ -139,6 +144,7 @@
 </pluginManagement>
 </build>
 <modules>
+	<module>ms-core</module>
     <module>ms-weather</module>
     <module>ms-edge</module>
 </modules>

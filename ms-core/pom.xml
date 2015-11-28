@@ -6,17 +6,46 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.dialectify.ms</groupId>
-  <artifactId>ms-weather</artifactId>
+  <artifactId>ms-core</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <dependencies>
   <dependency>
-  	<groupId>com.dialectify.ms</groupId>
-  	<artifactId>ms-core</artifactId>
+	<groupId>org.yaml</groupId>
+	<artifactId>snakeyaml</artifactId>
+</dependency>
+  <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
   </dependency>
+  <dependency>
+    <groupId>com.netflix.zuul</groupId>
+    <artifactId>zuul-core</artifactId>
+</dependency>
+<dependency>
+	<groupId>com.netflix.ribbon</groupId>
+	<artifactId>ribbon-core</artifactId>
+</dependency>
+<dependency>
+	<groupId>com.netflix.ribbon</groupId>
+	<artifactId>ribbon-eureka</artifactId>
+</dependency>
+<dependency>
+	<groupId>com.netflix.ribbon</groupId>
+	<artifactId>ribbon-httpclient</artifactId>
+</dependency>
+<dependency>
+	<groupId>com.netflix.hystrix</groupId>
+	<artifactId>hystrix-core</artifactId>
+</dependency>
+  <dependency>
+	<groupId>org.codehaus.groovy</groupId>
+	<artifactId>groovy-all</artifactId>
+</dependency>
   <dependency>
 	<groupId>com.google.code.gson</groupId>
 	<artifactId>gson</artifactId>
+	<version>2.2.4</version>
 </dependency>
   <dependency>
     <groupId>com.sun.jersey</groupId>
@@ -33,6 +62,14 @@
 	</exclusions>
   </dependency>
   <dependency>
+    <groupId>org.eclipse.jetty</groupId>
+    <artifactId>jetty-server</artifactId>
+  </dependency>
+  <dependency>
+    <groupId>org.eclipse.jetty</groupId>
+    <artifactId>jetty-servlet</artifactId>
+  </dependency>
+  <dependency>
 	<groupId>com.netflix.karyon</groupId>
 	<artifactId>karyon-core</artifactId>
 	<exclusions>
@@ -46,21 +83,25 @@
 	</exclusion>
 	</exclusions>
 </dependency> 
+
 <dependency>
     <groupId>org.ow2.asm</groupId>
     <artifactId>asm</artifactId>
     <scope>runtime</scope>
   </dependency>
+  
   <dependency>
     <groupId>org.ow2.asm</groupId>
     <artifactId>asm-all</artifactId>
     <scope>runtime</scope>
   </dependency>
+  
   <dependency>
     <groupId>org.apache.xbean</groupId>
     <artifactId>xbean-bundleutils</artifactId>
     <scope>runtime</scope>
   </dependency>
+  
   <dependency>
     <groupId>org.apache.xbean</groupId>
     <artifactId>xbean-finder</artifactId>
@@ -81,44 +122,6 @@
                 <target>1.8</target> 
             </configuration>
         </plugin>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-shade-plugin</artifactId>
-      <configuration>
-        <createDependencyReducedPom>true</createDependencyReducedPom>
-        <filters>
-          <filter>
-            <artifact>*:*</artifact>
-            <excludes>
-              <exclude>META-INF/*.SF</exclude>
-              <exclude>META-INF/*.DSA</exclude>
-              <exclude>META-INF/*.RSA</exclude>
-            </excludes>
-          </filter>
-        </filters>
-      </configuration>
-
-      <executions>
-        <execution>
-          <phase>package</phase>
-          <goals>
-            <goal>shade</goal>
-          </goals>
-          <configuration>
-            <transformers>
-              <transformer
-                implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-              <transformer
-                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                <manifestEntries>
-                  <Main-Class>com.dialectify.ws.WSService</Main-Class>
-                </manifestEntries>
-              </transformer>
-            </transformers>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
   </plugins>
 </build>
 </project>
