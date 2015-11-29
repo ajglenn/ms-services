@@ -79,7 +79,8 @@ class ZuulNFRequest extends ZuulFilter {
         MultivaluedMap<String, String> params = buildZuulRequestQueryParams(request)
         Verb verb = getVerb(request);
         Object requestEntity = getRequestBody(request)
-        IClient restClient = ClientFactory.getNamedClient(context.getRouteVIP());
+        //IClient restClient = ClientFactory.getNamedClient(context.getRouteVIP());
+        IClient restClient = ClientFactory.getNamedClient("ms-weather");
 
         String uri = request.getRequestURI()
         if (context.requestURI != null) {
@@ -153,6 +154,7 @@ class ZuulNFRequest extends ZuulFilter {
                 ClientException ex = e.fallbackException.cause as ClientException
                 throw new ZuulException(ex, "Forwarding error", 500, ex.getErrorType().toString())
             }
+
             throw new ZuulException(e, "Forwarding error", 500, e.failureType.toString())
         }
 

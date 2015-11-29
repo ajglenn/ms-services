@@ -28,6 +28,7 @@ import static com.netflix.zuul.constants.ZuulConstants.ZUUL_RIBBON_NAMESPACE;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import com.netflix.client.ClientFactory;
 import org.apache.commons.configuration.AbstractConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,6 @@ import org.slf4j.LoggerFactory;
 import com.netflix.appinfo.ApplicationInfoManager;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.client.ClientException;
-import com.netflix.client.ClientFactory;
 import com.netflix.client.config.DefaultClientConfigImpl;
 import com.netflix.config.ConfigurationManager;
 import com.netflix.config.DynamicPropertyFactory;
