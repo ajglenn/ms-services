@@ -57,7 +57,7 @@ class Routing extends ZuulFilter {
 
     Object run() {
 
-        staticRouting() //runs the static Zuul
+        //staticRouting() //runs the static Zuul
 
         ((NFRequestContext) RequestContext.currentContext).routeVIP = defaultClient.get()
         String host = defaultHost.get()

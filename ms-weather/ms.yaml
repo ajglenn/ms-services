@@ -1,6 +1,6 @@
 enableJmx: true
 applicationName: ms-weather
-listenPort: 8090
+listenPort: 8099
 listenerClass:
 filterClass:
 servletClass: 
