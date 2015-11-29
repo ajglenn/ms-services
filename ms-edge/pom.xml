@@ -18,6 +18,14 @@
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
   </dependency>
+  <dependency>
+    <groupId>com.netflix.zuul</groupId>
+    <artifactId>zuul-core</artifactId>
+</dependency>
+<dependency>
+    <groupId>com.netflix.zuul</groupId>
+    <artifactId>zuul-netflix</artifactId>
+</dependency>
 <dependency>
 	<groupId>com.netflix.ribbon</groupId>
 	<artifactId>ribbon-core</artifactId>
