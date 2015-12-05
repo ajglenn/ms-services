@@ -3,84 +3,84 @@ package com.dialectify.ws.build;
 
 public class STBuild
 {
-	private boolean enableJmx;
-	private String applicationName;
-	private int listenPort;
-	private ContextClass servletClass;
-	private ContextClass listenerClass;
-	private ContextClass filterClass;
-	
-	public String getEnableJmx()
-	{
-		return enableJmx ? "true" : "false";
-	}
+    private boolean enableJmx;
+    private String applicationName;
+    private int listenPort;
+    private ContextClass servletClass;
+    private ContextClass listenerClass;
+    private ContextClass filterClass;
 
-	public boolean isEnableJmx()
-	{
-		return enableJmx;
-	}
+    public String getEnableJmx()
+    {
+        return enableJmx ? "true" : "false";
+    }
 
-	public void setEnableJmx(boolean enableJmx)
-	{
-		this.enableJmx = enableJmx;
-	}
+    public boolean isEnableJmx()
+    {
+        return enableJmx;
+    }
 
-	public ContextClass getFilterClass()
-	{
-		return filterClass;
-	}
+    public void setEnableJmx(boolean enableJmx)
+    {
+        this.enableJmx = enableJmx;
+    }
 
-	public void setFilterClass(ContextClass filterClass)
-	{
-		this.filterClass = filterClass;
-	}
+    public ContextClass getFilterClass()
+    {
+        return filterClass;
+    }
 
-	public ContextClass getListenerClass()
-	{
-		return listenerClass;
-	}
+    public void setFilterClass(ContextClass filterClass)
+    {
+        this.filterClass = filterClass;
+    }
 
-	public void setListenerClass(ContextClass listenerClass)
-	{
-		this.listenerClass = listenerClass;
-	}
+    public ContextClass getListenerClass()
+    {
+        return listenerClass;
+    }
 
-	public ContextClass getServletClass()
-	{
-		return servletClass;
-	}
+    public void setListenerClass(ContextClass listenerClass)
+    {
+        this.listenerClass = listenerClass;
+    }
 
-	public void setServletClass(ContextClass servletClass)
-	{
-		this.servletClass = servletClass;
-	}
+    public ContextClass getServletClass()
+    {
+        return servletClass;
+    }
 
-	public int getListenPort()
-	{
-		return listenPort;
-	}
+    public void setServletClass(ContextClass servletClass)
+    {
+        this.servletClass = servletClass;
+    }
 
-	public void setListenPort(int listenPort)
-	{
-		this.listenPort = listenPort;
-	}
+    public int getListenPort()
+    {
+        return listenPort;
+    }
 
-	public String getApplicationName()
-	{
-		return applicationName;
-	}
+    public void setListenPort(int listenPort)
+    {
+        this.listenPort = listenPort;
+    }
 
-	public void setApplicationName(String applicationName)
-	{
-		this.applicationName = applicationName;
-	}
-	
-	public void validate()
-	{
-		if(null == applicationName ||
-		   applicationName.length() == 0)
-		{
-			throw new IllegalArgumentException("Application name missing");
-		}
-	}
+    public String getApplicationName()
+    {
+        return applicationName;
+    }
+
+    public void setApplicationName(String applicationName)
+    {
+        this.applicationName = applicationName;
+    }
+
+    public void validate()
+    {
+        if (null == applicationName ||
+                applicationName.length() == 0)
+        {
+            throw new IllegalArgumentException("Application name missing");
+        }
+    }
 }

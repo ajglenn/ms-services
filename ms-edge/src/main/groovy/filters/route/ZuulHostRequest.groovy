@@ -73,11 +73,10 @@ class ZuulHostRequest extends ZuulFilter {
     }
 
     private static final DynamicIntProperty SOCKET_TIMEOUT =
-        DynamicPropertyFactory.getInstance().getIntProperty(ZuulConstants.ZUUL_HOST_SOCKET_TIMEOUT_MILLIS, 10000)
+            DynamicPropertyFactory.getInstance().getIntProperty(ZuulConstants.ZUUL_HOST_SOCKET_TIMEOUT_MILLIS, 10000)
 
     private static final DynamicIntProperty CONNECTION_TIMEOUT =
-        DynamicPropertyFactory.getInstance().getIntProperty(ZuulConstants.ZUUL_HOST_CONNECT_TIMEOUT_MILLIS, 2000)
-
+            DynamicPropertyFactory.getInstance().getIntProperty(ZuulConstants.ZUUL_HOST_CONNECT_TIMEOUT_MILLIS, 2000)
 
 
     private static final AtomicReference<HttpClient> CLIENT = new AtomicReference<HttpClient>(newClient());
@@ -331,21 +330,21 @@ class ZuulHostRequest extends ZuulFilter {
                 valBuilder.append(vals.nextElement());
                 valBuilder.append(',')
             }
-            valBuilder.setLength(valBuilder.length()-1)
+            valBuilder.setLength(valBuilder.length() - 1)
 
             if (isValidHeader(name)) {
-                headers.put(name.toLowerCase(),new BasicHeader(name, valBuilder.toString()))
+                headers.put(name.toLowerCase(), new BasicHeader(name, valBuilder.toString()))
             }
         }
 
         Map zuulRequestHeaders = RequestContext.getCurrentContext().getZuulRequestHeaders();
 
         zuulRequestHeaders.keySet().each {
-            headers.put(it.toLowerCase(),new BasicHeader((String) it, (String) zuulRequestHeaders[it]))
+            headers.put(it.toLowerCase(), new BasicHeader((String) it, (String) zuulRequestHeaders[it]))
         }
 
         if (RequestContext.currentContext.responseGZipped) {
-            headers.put("accept-encoding",new BasicHeader("accept-encoding", "deflate, gzip"))
+            headers.put("accept-encoding", new BasicHeader("accept-encoding", "deflate, gzip"))
         }
         return headers.values().toArray()
     }
@@ -432,7 +431,6 @@ class ZuulHostRequest extends ZuulFilter {
                 return true
         }
     }
-
 
 
     @RunWith(MockitoJUnitRunner.class)

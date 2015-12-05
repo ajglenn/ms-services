@@ -95,7 +95,6 @@ class ZuulNFRequest extends ZuulFilter {
     }
 
 
-
     void debug(RestClient restClient, Verb verb, uri, MultivaluedMap<String, String> headers, MultivaluedMap<String, String> params, InputStream requestEntity) {
 
         if (Debug.debugRequest()) {
@@ -126,7 +125,6 @@ class ZuulNFRequest extends ZuulFilter {
             Debug.addRequestDebug("ZUUL:: > ${entity}")
         }
     }
-
 
 
     def HttpResponse forward(RestClient restClient, Verb verb, uri, MultivaluedMap<String, String> headers, MultivaluedMap<String, String> params, InputStream requestEntity) {
@@ -176,7 +174,6 @@ class ZuulNFRequest extends ZuulFilter {
     }
 
 
-
     def MultivaluedMap<String, String> buildZuulRequestQueryParams(HttpServletRequest request) {
 
         Map<String, List<String>> map = HTTPRequestUtils.getInstance().getQueryParams()
@@ -217,7 +214,6 @@ class ZuulNFRequest extends ZuulFilter {
 
         return headers
     }
-
 
 
     Verb getVerb(HttpServletRequest request) {
@@ -357,7 +353,6 @@ class ZuulNFRequest extends ZuulFilter {
 
 
         }
-
 
 
         @Test

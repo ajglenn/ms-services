@@ -1,147 +1,148 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <parent>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.dialectify.ms</groupId>
+        <artifactId>ms-service-reactor</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
     <groupId>com.dialectify.ms</groupId>
-  	<artifactId>ms-service-reactor</artifactId>
-  	<version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.dialectify.ms</groupId>
-  <artifactId>ms-edge</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  <dependencies>
-  <dependency>
-  	<groupId>com.dialectify.ms</groupId>
-  	<artifactId>ms-core</artifactId>
-  </dependency>
-  <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-  </dependency>
-  <dependency>
-    <groupId>com.netflix.zuul</groupId>
-    <artifactId>zuul-core</artifactId>
-</dependency>
-<dependency>
-    <groupId>com.netflix.zuul</groupId>
-    <artifactId>zuul-netflix</artifactId>
-</dependency>
-<dependency>
-	<groupId>com.netflix.ribbon</groupId>
-	<artifactId>ribbon-core</artifactId>
-    <exclusions>
-        <exclusion>
-            <groupId>com.netflix.rxjava</groupId>
-            <artifactId>rxjava-core</artifactId>
-        </exclusion>
-    </exclusions>
-</dependency>
-<dependency>
-	<groupId>com.netflix.ribbon</groupId>
-	<artifactId>ribbon-eureka</artifactId>
-</dependency>
-<dependency>
-	<groupId>com.netflix.ribbon</groupId>
-	<artifactId>ribbon-httpclient</artifactId>
-</dependency>
-<dependency>
-	<groupId>com.netflix.hystrix</groupId>
-	<artifactId>hystrix-core</artifactId>
-</dependency>
-  <dependency>
-	<groupId>org.codehaus.groovy</groupId>
-	<artifactId>groovy-all</artifactId>
-</dependency>
-  <dependency>
-	<groupId>com.google.code.gson</groupId>
-	<artifactId>gson</artifactId>
-	<version>2.2.4</version>
-</dependency>
+    <artifactId>ms-edge</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>com.dialectify.ms</groupId>
+            <artifactId>ms-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.zuul</groupId>
+            <artifactId>zuul-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.zuul</groupId>
+            <artifactId>zuul-netflix</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.ribbon</groupId>
+            <artifactId>ribbon-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.netflix.rxjava</groupId>
+                    <artifactId>rxjava-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.ribbon</groupId>
+            <artifactId>ribbon-eureka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.ribbon</groupId>
+            <artifactId>ribbon-httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.hystrix</groupId>
+            <artifactId>hystrix-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+        </dependency>
 
-<dependency>
-    <groupId>org.ow2.asm</groupId>
-    <artifactId>asm</artifactId>
-    <scope>runtime</scope>
-  </dependency>
-  
-  <dependency>
-    <groupId>org.ow2.asm</groupId>
-    <artifactId>asm-all</artifactId>
-    <scope>runtime</scope>
-  </dependency>
-  
-  <dependency>
-    <groupId>org.apache.xbean</groupId>
-    <artifactId>xbean-bundleutils</artifactId>
-    <scope>runtime</scope>
-  </dependency>
-  
-  <dependency>
-    <groupId>org.apache.xbean</groupId>
-    <artifactId>xbean-finder</artifactId>
-    <scope>runtime</scope>
-  </dependency>
- <dependency>
-  <groupId>com.netflix.blitz4j</groupId>
-  <artifactId>blitz4j</artifactId>
- </dependency>
- <dependency>
-  <groupId>org.powermock</groupId>
-  <artifactId>powermock-api-mockito</artifactId>
- </dependency>
- <dependency>
-  <groupId>junit</groupId>
-  <artifactId>junit-dep</artifactId>
- </dependency>
-</dependencies>
-<build>
-  <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-                <source>1.7</source> 
-                <target>1.8</target> 
-            </configuration>
-        </plugin>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-shade-plugin</artifactId>
-      <configuration>
-        <createDependencyReducedPom>true</createDependencyReducedPom>
-        <filters>
-          <filter>
-            <artifact>*:*</artifact>
-            <excludes>
-              <exclude>META-INF/*.SF</exclude>
-              <exclude>META-INF/*.DSA</exclude>
-              <exclude>META-INF/*.RSA</exclude>
-            </excludes>
-          </filter>
-        </filters>
-      </configuration>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
-      <executions>
-        <execution>
-          <phase>package</phase>
-          <goals>
-            <goal>shade</goal>
-          </goals>
-          <configuration>
-            <transformers>
-              <transformer
-                implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-              <transformer
-                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                <manifestEntries>
-                  <Main-Class>com.dialectify.ws.WSService</Main-Class>
-                </manifestEntries>
-              </transformer>
-            </transformers>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
-  </plugins>
-</build>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm-all</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.xbean</groupId>
+            <artifactId>xbean-bundleutils</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.xbean</groupId>
+            <artifactId>xbean-finder</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.blitz4j</groupId>
+            <artifactId>blitz4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit-dep</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <configuration>
+                    <createDependencyReducedPom>true</createDependencyReducedPom>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <Main-Class>com.dialectify.ws.WSService</Main-Class>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

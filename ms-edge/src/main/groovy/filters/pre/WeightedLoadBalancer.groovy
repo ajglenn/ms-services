@@ -44,7 +44,8 @@ import javax.servlet.http.HttpServletResponse
 class WeightedLoadBalancer extends ZuulFilter {
     DynamicStringProperty AltVIP = DynamicPropertyFactory.getInstance().getStringProperty(ZuulConstants.ZUUL_ROUTER_ALT_ROUTE_VIP, null)
     DynamicStringProperty AltHost = DynamicPropertyFactory.getInstance().getStringProperty(ZuulConstants.ZUUL_ROUTER_ALT_ROUTE_HOST, null)
-    DynamicIntProperty AltPercent = DynamicPropertyFactory.getInstance().getIntProperty(ZuulConstants.ZUUL_ROUTER_ALT_ROUTE_PERMYRIAD, 0)   //0-10000 is 0-100% of traffic
+    DynamicIntProperty AltPercent = DynamicPropertyFactory.getInstance().getIntProperty(ZuulConstants.ZUUL_ROUTER_ALT_ROUTE_PERMYRIAD, 0)
+    //0-10000 is 0-100% of traffic
     DynamicIntProperty AltPercentMaxLimit = DynamicPropertyFactory.getInstance().getIntProperty(ZuulConstants.ZUUL_ROUTER_ALT_ROUTE_MAXLIMIT, 500)
     String envRegion = System.getenv("EC2_REGION");
 
@@ -69,7 +70,8 @@ class WeightedLoadBalancer extends ZuulFilter {
 
         if (AltPercent.get() == 0) return false
         if (AltVIP.get() == null && AltHost.get() == null) return false
-        if (NFRequestContext.currentContext.host != null) return false //host calls are not going to be loaltPad calculated here.
+        if (NFRequestContext.currentContext.host != null) return false
+        //host calls are not going to be loaltPad calculated here.
         if (RequestContext.currentContext.sendZuulResponse == false) return false;
         if (AltPercent.get() > AltPercentMaxLimit.get()) return false
 

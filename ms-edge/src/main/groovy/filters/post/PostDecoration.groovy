@@ -40,7 +40,8 @@ class Postfilter extends ZuulFilter {
     }
 
     boolean shouldFilter() {
-        if (true.equals(NFRequestContext.getCurrentContext().zuulToZuul)) return false; //request was routed to a zuul server, so don't send response headers
+        if (true.equals(NFRequestContext.getCurrentContext().zuulToZuul)) return false;
+        //request was routed to a zuul server, so don't send response headers
         return true
     }
 

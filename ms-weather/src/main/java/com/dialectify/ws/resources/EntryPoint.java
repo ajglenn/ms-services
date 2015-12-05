@@ -8,11 +8,11 @@ import javax.ws.rs.core.MediaType;
 @Path("/ms-weather/entry-point")
 public class EntryPoint
 {
-	@GET
-	@Path("test")
-	@Produces(MediaType.APPLICATION_JSON)
-	public WSResponse test()
-	{
-		return new WSResponse("Kansas City", "nice");
-	}
+    @GET
+    @Path("test")
+    @Produces(MediaType.APPLICATION_JSON)
+    public WSResponse test()
+    {
+        return new WSResponse("Kansas City", "nice");
+    }
 }
